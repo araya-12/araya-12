@@ -1,29 +1,33 @@
-name: GenerateSnake
+name: Generate Snake
+
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 0 * * *" # 毎日実行
+
+permissions:
+  contents: write   # これを必ず追加！
 
 jobs:
-  update-repository:
-    name: Update this repo's README with repository_owner
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Generate Snake
-        uses: Platane/snk/svg-only@v3
-        id: snake-gif
+        uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            ./img/snake.svg
-            ./img/snake-dark.svg?palette=github-dark
-      - name: Push to GitHub
-        uses: EndBug/add-and-commit@main
+            dist/snake.svg
+            dist/snake.gif
+            dist/snake-dark.svg?palette=github-dark
+
+      - name: Push Snake to output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
-	  # ブランチ名はデフォルトブランチ名にする(main or master)
-          branch: main  
-          message: ':rocket: Update'
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
