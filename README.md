@@ -1,6 +1,6 @@
 ## Hi there 👋
 
-<img src="https://raw.githubusercontent.com/s1223takuma/s1223takuma/output/snake.svg" alt="snake gif">
+<img src="https://raw.githubusercontent.com/araya-12/araya-12/output/snake.svg" alt="snake gif">
 <!--
 **araya-12/araya-12** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
